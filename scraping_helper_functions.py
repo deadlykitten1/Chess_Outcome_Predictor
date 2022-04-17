@@ -70,9 +70,15 @@ def get_chess_data(chunk):
         year = np.nan
 
     try:
-        game = str(chunk.find_all('td')[0].find_all('a')[1].find_all('span')[1].text)
+        opening_name = str(chunk.find_all('td')[0].find_all('a')[1].find_all('span')[1].text)
     except:
-        print('Game nan')
-        game = np.nan
+        print('Opening name nan')
+        opening_name = np.nan
 
-    return white_player, white_player_rating, black_player, black_player_rating, result, game_length, year, game
+    try:
+        opening = str(chunk.find_all('td')[0].find_all('a')[1].find_all('span')[0].text)
+    except:
+        print('Opening nan')
+        opening = np.nan
+
+    return white_player, white_player_rating, black_player, black_player_rating, result, game_length, year, opening_name, opening
