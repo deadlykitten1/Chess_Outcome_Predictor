@@ -25,6 +25,7 @@ def cook_chess_soup(URL):
 def get_chess_data(chunk):
     """
     Given a list element from Chess.com's master game webpage, grab and return relevent data in a dictionary
+    This function is hella ugly but whatever
     """
     try:
         white_player = str(chunk.find_all('td')[0].find_all('a')[0].find_all('div')[0].find_all('span')[0].string)
