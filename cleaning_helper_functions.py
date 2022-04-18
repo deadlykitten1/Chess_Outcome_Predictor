@@ -9,12 +9,12 @@ def player_df_cleanup(row, name):
 
     if row[0] == name: # player plays white
         new_row.append(row[1]) # opp
-        new_row.append('white') # opp color (1 is black)
+        new_row.append('white') # player color
         new_row.append(row[3]) # opp rating
         new_row.append(row[2]) # player rating
     else: # plyaer plays black
         new_row.append(row[0]) # opp
-        new_row.append('black') # opp color (1 is black)
+        new_row.append('black') # player color
         new_row.append(row[2]) # opp rating
         new_row.append(row[3]) # player rating
 
@@ -33,18 +33,18 @@ def player_df_cleanup(row, name):
 
 def win_cleanup(row):
     result_list = []
-    if row['opponent_color'] == 'white':
+    if row['player_color'] == 'white':
         if row['result'] == '0-1':
-            result_list.append('win')
-        elif row['result'] == '1-0':
             result_list.append('loss')
+        elif row['result'] == '1-0':
+            result_list.append('win')
         else:
             result_list.append('draw')
     else:
         if row['result'] == '0-1':
-            result_list.append('loss')
-        elif row['result'] == '1-0':
             result_list.append('win')
+        elif row['result'] == '1-0':
+            result_list.append('loss')
         else:
             result_list.append('draw')
     return result_list
