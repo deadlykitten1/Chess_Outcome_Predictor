@@ -30,3 +30,21 @@ def player_df_cleanup(row, name):
     #     new_row.append(bpr) # player rating
     
     return new_row
+
+def win_cleanup(row):
+    result_list = []
+    if row['opponent_color'] == 'white':
+        if row['result'] == '0-1':
+            result_list.append('win')
+        elif row['result'] == '1-0':
+            result_list.append('loss')
+        else:
+            result_list.append('draw')
+    else:
+        if row['result'] == '0-1':
+            result_list.append('loss')
+        elif row['result'] == '1-0':
+            result_list.append('win')
+        else:
+            result_list.append('draw')
+    return result_list
