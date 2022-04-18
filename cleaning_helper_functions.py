@@ -9,12 +9,12 @@ def player_df_cleanup(row, name):
 
     if row[0] == name: # player plays white
         new_row.append(row[1]) # opp
-        new_row.append(1) # opp color (1 is black)
+        new_row.append('white') # opp color (1 is black)
         new_row.append(row[3]) # opp rating
         new_row.append(row[2]) # player rating
     else: # plyaer plays black
         new_row.append(row[0]) # opp
-        new_row.append(0) # opp color (1 is black)
+        new_row.append('black') # opp color (1 is black)
         new_row.append(row[2]) # opp rating
         new_row.append(row[3]) # player rating
 
