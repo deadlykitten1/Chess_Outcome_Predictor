@@ -83,4 +83,24 @@ def get_chess_data(chunk):
         print('Opening nan')
         opening = np.nan
 
-    return white_player, white_player_rating, black_player, black_player_rating, result, game_length, year, opening_name, opening
+    try:
+        game_link = str(chunk.find_all('td')[0].find_all('a')[0]['href'])
+    except:
+        print('Game link nan')
+        game_link = np.nan
+
+    return white_player, white_player_rating, black_player, black_player_rating, result, game_length, year, opening_name, opening, game_link
+
+
+def cook_chess_game_soup(URL):
+    """
+    This is a helper function to fetch information from a chess.com game page
+    """
+    #get html from page
+    page = requests.get(URL)
+    soup = BeautifulSoup(page._content, "html.parser")
+
+    #fetch the data from the page
+    broth = soup.html#.body.find_all('div')#.find_all('div')[0].find_all('div')[1].find_all('div')
+
+    print(broth)
