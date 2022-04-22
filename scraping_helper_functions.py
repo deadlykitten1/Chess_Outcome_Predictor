@@ -2,6 +2,9 @@ from cmath import exp
 from hashlib import new
 from shutil import which
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 import numpy as np
 import requests
 import pandas as pd
@@ -96,11 +99,32 @@ def cook_chess_game_soup(URL):
     """
     This is a helper function to fetch information from a chess.com game page
     """
-    #get html from page
-    page = requests.get(URL)
-    soup = BeautifulSoup(page._content, "html.parser")
+    # #get html from page
+    # page = requests.get(URL)
+    # soup = BeautifulSoup(page._content, "html.parser")
+
+    # #fetch the data from the page
+    # broth = soup.html.body.find('div', id = 'board-layout-sidebar')#.find_all('div')[0].find_all('div')[1].find_all('div')
+
+
+    driver = webdriver.Chrome('./chromedriver') 
+    driver.get(URL)
+
+    time.sleep(10) # to ensure the page and analysis loads 
+    
+    page = driver.page_source
+    soup = BeautifulSoup(page, "html.parser")
 
     #fetch the data from the page
-    broth = soup.html#.body.find_all('div')#.find_all('div')[0].find_all('div')[1].find_all('div')
+    broth = soup.html.body.find('div', id = 'board-layout-sidebar').find_all('div')[0].find_all('div')[1]
+    veggies = broth.find_all('div')[0].find('div', class_ = 'review-view-main review-scroll-container')
+    meats = veggies.section.div
 
-    print(broth)
+    # white_acc = float(meats.find('div', class_ = 'accuracy-score-component accuracy-score-white').div.div.text)
+    # black_acc = float(meats.find('div', class_ = 'accuracy-score-component accuracy-score-black').div.div.text)
+
+    white_acc = meats.find_all('div')[0]#.div.div.text)
+    black_acc = meats.find_all('div')[1]#.div.div.text)
+
+    print(white_acc)
+    print(black_acc)
